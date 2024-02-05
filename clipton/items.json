@@ -1,0 +1,32 @@
+[
+  {
+    "text": "git@github.com:AlanRoggers/dotfiles.git",
+    "date": 1707094767,
+    "num_lines": 1,
+    "title": ""
+  },
+  {
+    "text": "https://forum.endeavouros.com/t/i3-rofi-default-theme-question/9326/16",
+    "date": 1707013090,
+    "num_lines": 1,
+    "title": "I3 rofi default theme question - #16 by joekamprad - All WMs - EndeavourOS"
+  },
+  {
+    "text": "rofi -inputchange-action \"kb-row-first\" -dmenu -markup-rows",
+    "date": 1707013083,
+    "num_lines": 1,
+    "title": ""
+  },
+  {
+    "text": "https://github.com/madprops/clipton",
+    "date": 1707012436,
+    "num_lines": 1,
+    "title": "GitHub - madprops/clipton: Clipboard manager with a Rofi frontend"
+  },
+  {
+    "text": "asdasd",
+    "date": 1707009839,
+    "num_lines": 1,
+    "title": ""
+  }
+]

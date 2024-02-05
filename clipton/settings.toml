@@ -1,0 +1,4 @@
+show_date = true
+show_num_lines = false
+rofi_width = "45%"
+max_items = 100

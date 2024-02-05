@@ -1,0 +1,7 @@
+import = ["~/Repos/ConfigRepos/alacritty-theme/themes/hyper.toml"]
+
+[font]
+normal = { family = "FiraCodeNerdFontMono", style = "Bold"}
+size = 11
+[window]
+padding = {x=20,y=20}
