@@ -1,5 +1,4 @@
 #!/bin/sh
-volumeicon
 picom --daemon
 nitrogen --restore &
 clipton watcher &

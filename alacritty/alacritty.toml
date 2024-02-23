@@ -1,4 +1,4 @@
-import = ["~/Repos/ConfigRepos/alacritty-theme/themes/hyper.toml"]
+import = ["~/dotfiles/alacritty/hyper.toml"]
 
 [font]
 normal = { family = "FiraCodeNerdFontMono", style = "Bold"}

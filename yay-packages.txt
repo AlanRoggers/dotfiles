@@ -1,0 +1,9 @@
+clipton-git
+xfce-polkit
+lightdm-theme-neon
+spotify
+discord
+visual-studio-code-bin
+unity
+pamac-all
+xcursor-breeze
