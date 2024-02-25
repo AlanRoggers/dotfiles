@@ -84,12 +84,13 @@ def autostart():
 
 @hook.subscribe.client_new
 def new_client(client):
+    subprocess.run(f"dunstify {client.name}", shell=True)
     if client.name == "ArchLinux Logout":
         qtile.hide_show_bar()
     if client.name == "Alacritty":
-        # client.center()
+        client.center()
         client.set_size_floating(861, 425)
-        client.disable_floating()
+        # client.disable_floating()
 
 
 @hook.subscribe.client_killed
@@ -312,7 +313,7 @@ dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
 bring_front_click = False
 floats_kept_above = True
-cursor_warp = True
+cursor_warp = False
 floating_layout = layout.Floating(
     border_width=0,
     float_rules=[

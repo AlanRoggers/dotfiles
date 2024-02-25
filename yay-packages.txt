@@ -7,3 +7,6 @@ visual-studio-code-bin
 unity
 pamac-all
 xcursor-breeze
+jdesktopEntryEdit
+python-conda
+arcolinux-tweak-tool-git

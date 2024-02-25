@@ -16,3 +16,6 @@ neofetch
 pamixer
 nvidia-settings
 sbctl
+playerctl
+# Con Arcolinux repo y arco linux 3rd party
+archlinux-logout-git
