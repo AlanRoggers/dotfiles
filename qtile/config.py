@@ -84,7 +84,11 @@ def autostart():
 
 @hook.subscribe.client_new
 def new_client(client):
-    subprocess.run(f"dunstify {client.name}", shell=True)
+    # wm_class = client.window.get_wm_class()[0]
+    # wm_name = client.window.get_wm_icon_name()
+    # subprocess.run(f"dunstify {wm_class} clase", shell=True)
+    # subprocess.run(f"dunstify {wm_name} nombre", shell=True)
+    # subprocess.run(f"dunstify {client.wm_class} clase", shell=True)
     if client.name == "ArchLinux Logout":
         qtile.hide_show_bar()
     if client.name == "Alacritty":
@@ -325,7 +329,8 @@ floating_layout = layout.Floating(
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
-        Match(title="Animation", wm_class="Unity"),
+        Match(wm_class="crx_nngceckbapebfimnlniiiahkandclblb"),
+        Match(wm_class="Unity"),
     ],
 )
 auto_fullscreen = True
