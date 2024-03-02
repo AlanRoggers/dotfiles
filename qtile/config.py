@@ -25,11 +25,10 @@
 
 from distutils.command.config import LANG_EXT
 from libqtile import bar, layout, widget, qtile
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile import hook
-
 import os
 import subprocess
 
@@ -81,7 +80,6 @@ def autostart():
     home = os.path.expanduser("~/dotfiles/qtile/autostart.sh")
     subprocess.Popen([home])
 
-
 @hook.subscribe.client_new
 def new_client(client):
     # wm_class = client.window.get_wm_class()[0]
@@ -95,7 +93,6 @@ def new_client(client):
         client.center()
         client.set_size_floating(861, 425)
         # client.disable_floating()
-
 
 @hook.subscribe.client_killed
 def logout_killed(window):
@@ -163,7 +160,7 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod, "shift"], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
@@ -201,7 +198,9 @@ keys = [
     Key([mod], "Print", lazy.spawn("xfce4-screenshooter -w")),
 ]
 
+# Escritorios
 groups = [Group(name=i) for i in "12345"]
+
 workspace_icons = "󰼾󱂟󰅶󱐟󱄖"
 
 for i, workspace in enumerate(groups):
@@ -231,10 +230,24 @@ for i, workspace in enumerate(groups):
         ]
     )
 
+# Scratchpads
+scratchpad = ScratchPad("scratchpad", [
+    DropDown("alacritty", "alacritty", opacity=1),
+    DropDown("spotify", "spotify", opacity=1),
+])
+
+groups.append(scratchpad)
+
+keys.extend([
+    Key([mod], 'Return', lazy.group['scratchpad'].dropdown_toggle('alacritty')),
+    Key([mod], 's', lazy.group['scratchpad'].dropdown_toggle('spotify')),
+])
+
 layouts = [
     layout.Columns(
         border_width=0,
         margin=4,
+        border_focus= '#ff2d62',
     ),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
@@ -262,7 +275,8 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.Systray(),
+                widget.CurrentLayoutIcon(scale=0.5),
+                widget.CurrentLayout(),
                 widget.Spacer(),
                 widget.GroupBox(
                     font="FiraCode Nerd Font Mono",
@@ -275,11 +289,10 @@ screens = [
                 # widget.WindowName(),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
                 # widget.QuickExit(),
-                widget.CurrentLayoutIcon(scale=0.48),
                 widget.Spacer(length=20),
+                widget.Systray(),
+                widget.Spacer(length=5),
                 widget.Clock(format="%I:%M %p", fontsize=13),
-                widget.Spacer(length=10),
-                widget.Volume(theme_path="/home/alan/.local/share/icons/Tela-dark"),
             ],
             28,
             background="#000000",
@@ -331,6 +344,7 @@ floating_layout = layout.Floating(
         Match(title="pinentry"),  # GPG key password entry
         Match(wm_class="crx_nngceckbapebfimnlniiiahkandclblb"),
         Match(wm_class="Unity"),
+        # Match(wm_class="Alacritty"),
     ],
 )
 auto_fullscreen = True

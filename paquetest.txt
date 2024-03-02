@@ -17,5 +17,8 @@ pamixer
 nvidia-settings
 sbctl
 playerctl
+cuda
+dotnet-runtime
+dotnet-sdk
 # Con Arcolinux repo y arco linux 3rd party
 archlinux-logout-git
