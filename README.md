@@ -52,6 +52,9 @@ en teoría no debería haber problemas
 -> /usr/local/share/applications
 -> /.local/share/applications
 
+# Qtile
+Los iconos que se ven en la barra de estatus del widget del Layout se deben poner en la carpeta de ~/.icons, ver la documentación de Qtile para tener mejores ejemplos
+
 # Paquetes instalados (Lista que hice manualmente)
 dmenu - Lanzador de aplicaciones que permite crear menús en las barras de estado
 lxappearance - Cambiador de temas GTK2

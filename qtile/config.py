@@ -34,7 +34,7 @@ import subprocess
 
 increase_volume = 5
 decrease_volume = 5
-
+current_layout = ""
 
 def noty_of_volume():
     noti_id = "1000000"
@@ -54,7 +54,6 @@ def noty_of_volume():
     else:
         return f"dunstify '󰖁 {volume}' -t {timeout} -r {noti_id}"
 
-
 @lazy.function
 def pamixerUp(qtile):
 
@@ -65,7 +64,6 @@ def pamixerUp(qtile):
     command = noty_of_volume()
     subprocess.run(command, shell=True)
 
-
 @lazy.function
 def pamixerDown(qtile):
     subprocess.run(
@@ -73,7 +71,6 @@ def pamixerDown(qtile):
     )
     command = noty_of_volume()
     subprocess.run(command, shell=True)
-
 
 @hook.subscribe.startup_once
 def autostart():
@@ -89,9 +86,9 @@ def new_client(client):
     # subprocess.run(f"dunstify {client.wm_class} clase", shell=True)
     if client.name == "ArchLinux Logout":
         qtile.hide_show_bar()
-    if client.name == "Alacritty":
-        client.center()
-        client.set_size_floating(861, 425)
+    # if client.name == "Alacritty":
+    #     client.center()
+        # client.set_size_floating(861, 425)
         # client.disable_floating()
 
 @hook.subscribe.client_killed
@@ -99,6 +96,17 @@ def logout_killed(window):
     if window.name == "ArchLinux Logout":
         qtile.hide_show_bar()
 
+@hook.subscribe.layout_change
+def layout_change(layout, group):
+    global current_layout
+    # subprocess.run(f"dunstify {layout.name}", shell=True)
+    # subprocess.run(f"dunstify {current_layout}", shell=True)
+    if layout.name == "max":
+        qtile.hide_show_bar()
+        current_layout = "max"
+    elif current_layout == "max":
+        qtile.hide_show_bar()
+        current_layout = ""
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -150,6 +158,8 @@ keys = [
     Key([mod, "control"], "Down", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "control"], "Up", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key([mod, "mod1"], "Up", lazy.layout.grow()),
+    Key([mod, "mod1"], "Down", lazy.layout.shrink()),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
@@ -232,8 +242,8 @@ for i, workspace in enumerate(groups):
 
 # Scratchpads
 scratchpad = ScratchPad("scratchpad", [
-    DropDown("alacritty", "alacritty", opacity=1),
-    DropDown("spotify", "spotify", opacity=1),
+    DropDown("alacritty", "alacritty", opacity=0.7, x=0.25, y=0.005, height=0.4, width=0.45),
+    DropDown("spotify", "spotify", opacity=1, x=0.25, y=0.2, height=0.5, width=0.5),
 ])
 
 groups.append(scratchpad)
@@ -245,22 +255,28 @@ keys.extend([
 
 layouts = [
     layout.Columns(
-        border_width=0,
-        margin=4,
-        border_focus= '#ff2d62',
+        border_width=2,
+        margin=5,
+        border_focus="#023e8a",
+        border_normal="#0096c7",
     ),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    # layout.MonadTall(),
+    layout.MonadTall(
+        border_width=2,
+        margin=5,
+        border_focus="#023e81",
+        border_normal="#0096c7"
+    ),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
     # layout.TreeTab(),
     # layout.VerticalTile(),
-    layout.Zoomy(),
+    # layout.Zoomy(),
 ]
 
 widget_defaults = dict(
@@ -344,7 +360,9 @@ floating_layout = layout.Floating(
         Match(title="pinentry"),  # GPG key password entry
         Match(wm_class="crx_nngceckbapebfimnlniiiahkandclblb"),
         Match(wm_class="Unity"),
-        # Match(wm_class="Alacritty"),
+        Match(wm_class="Spotify"),
+        Match(wm_class="Alacritty"),
+        Match(wm_class="discord"),
     ],
 )
 auto_fullscreen = True
